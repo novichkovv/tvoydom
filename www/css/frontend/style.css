@@ -1,0 +1,23 @@
+#log {
+    display: none;
+}
+#log-button {
+    height: 10px;
+    cursor: pointer;
+    margin-top: -5px;
+    background: linear-gradient(180deg, #ccc, #eee, #fff);
+}
+.btn-cart span {
+    font-size: 15px !important;
+}
+.product-shop .actions {
+    margin: 23px -9px 0 0;
+    float: right;
+}
+.desc.std {
+    width: 60%;
+    float: left;
+}
+.products-list .item {
+    width: 100% !important;
+}
