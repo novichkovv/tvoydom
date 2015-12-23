@@ -1,4 +1,4 @@
-<form id="category_form">
+<form id="category_form" style="background-color: #fff; padding: 10px;">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">Новая Категория</h4>
@@ -39,14 +39,14 @@
                 </div>
             </div>
         </div>
-        <div class="form-group">
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="category[mega_menu]" value="1" <?php if($category['mega_menu'] || !$category) echo 'checked'; ?>>
-                    Показывать в мега меню
-                </label>
-            </div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <div class="checkbox">-->
+<!--                <label>-->
+<!--                    <input type="checkbox" name="category[mega_menu]" value="1" --><?php //if($category['mega_menu'] || !$category) echo 'checked'; ?><!-->-->
+<!--                    Показывать в мега меню-->
+<!--                </label>-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="form-group">
             <div class="checkbox">
                 <label>

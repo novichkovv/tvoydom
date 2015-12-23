@@ -1,35 +1,19 @@
 /**
- * Created by asus1 on 30.05.2015.
+ * Created by asus1 on 22.12.2015.
  */
 $ = jQuery.noConflict();
 $(document).ready(function() {
-    $(".sidebar-menu .expand").click(function()
+    $("body").on("click", ".sidebar-plus-btn", function()
     {
-        $(this).parent().children('.sub-menu').slideToggle(100);
-    });
-    $("#log-button").click(function()
-    {
-        $("#log").slideToggle();
-    });
-    $("#log").dblclick(function()
-    {
-        $(this).slideUp();
+        $(this).closest('ul').find('.sidebar-child').slideDown();
+        $(this).removeClass('sidebar-plus-btn');
+        $(this).addClass('sidebar-minus-btn');
     });
 
-    $('body').on('click', "#add_to_cart", function()
+    $("body").on("click", ".sidebar-minus-btn", function()
     {
-        var product_id = $(this).attr('data-product');
-        var params = {
-            'action': 'add_to_cart',
-            'common': true,
-            'values': {product_id: product_id},
-            'callback': function (msg) {
-                ajax_respond(msg, function(respond) {
-                    $(".basket").html('<span>' + respond.count + '</span>');
-                });
-
-            }
-        };
-        ajax(params);
-    });
+        $(this).closest('ul').find('.sidebar-child').slideUp();
+        $(this).removeClass('sidebar-minus-btn');
+        $(this).addClass('sidebar-plus-btn');
+    })
 });

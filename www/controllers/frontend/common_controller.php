@@ -11,8 +11,8 @@ class common_controller extends controller
     {
         $this->addStyle('');
         $this->addScript('');
-        $categories = $this->model('categories')->getCategories();
-        $this->render('menu_categories', $categories);
+        $categories = $this->model('categories')->getByFields(array('active' => 1, 'parent' => 0), true, 'position');
+        $this->render('common_categories', $categories);
         $this->render('client', registry::get('client'));
     }
 

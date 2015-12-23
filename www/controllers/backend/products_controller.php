@@ -99,7 +99,6 @@ class products_controller extends controller
             $this->render('copy_image_template', $copy_image_template);
             $this->render('image_form_id', $i);
             $this->render('product', $product);
-            $this->render('product_copies', $this->model('products')->getProductCopies($product['copy_id']));
         }
         $this->render('categories', $categories);
         $this->breadcrumbs();
@@ -150,47 +149,8 @@ class products_controller extends controller
                 $product = $_POST['product'];
                 if (!$product['id']) {
                     $product['create_date'] = date('Y-m-d H:i:s');
-                } else {
-                    if($_POST['main_copy'] == $product['id']) {
-                        $product['main_copy'] = 1;
-                        $product['copy_id'] = $this->model('products')->getById($product['id'])['copy_id'];
-                        foreach ($this->model('products')->getByField('copy_id' ,$product['copy_id'], true) as $copy) {
-                            if($copy['main_copy'] == 1) {
-                                $row = [];
-                                $row['id'] = $copy['id'];
-                                $row['main_copy'] = 0;
-                                $this->model('products')->insert($row);
-                            }
-                        }
-                    } else {
-                        $product['main_copy'] = 0;
-                        $row = [];
-                        $row['id'] = $_POST['main_copy'];
-                        $row['main_copy'] = 1;
-                        $this->model('products')->insert($row);
-                    }
                 }
                 if ($product['id'] = $this->model('products')->insert($product)) {
-                    if (!$_POST['product']['id']) {
-                        $row = [];
-                        $row['url_key'] = $product['product_key'];
-                        $row['controller'] = 'product_controller';
-                        $row['method'] = 'view_product';
-                        $row['entity_table'] = 'products';
-                        $row['entity_id'] = $product['id'];
-                        $this->model('frontend_routes')->insert($row);
-                    } else {
-                        $route = $this->model('frontend_routes')->getByFields(array('entity_table' => 'products', 'entity_id' => $product['id']));
-                        if ($route['url_key'] != $product['product_key']) {
-                            $row['url_key'] = $product['product_key'];
-                            $row['controller'] = 'product_controller';
-                            $row['method'] = 'view_product';
-                            $row['entity_table'] = 'products';
-                            $row['entity_id'] = $product['id'];
-                            $this->model('frontend_routes')->insert($row);
-                        }
-                    }
-
                     $images = [];
                     $this->model('product_images')->delete('product_id', $product['id']);
                     foreach ($_POST['image'] as $k => $v) {

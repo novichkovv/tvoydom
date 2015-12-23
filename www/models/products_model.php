@@ -45,7 +45,7 @@ class products_model extends model
         return $res;
     }
 
-    public function getCategoryProducts($category_id) {
+    public function getCategoryProducts($category_id = null, $order = null, $limit = null) {
         $stm = $this->pdo->prepare('
         SELECT
             p.id,
@@ -62,11 +62,69 @@ class products_model extends model
                LEFT JOIN
             product_images i ON i.product_id = p.id AND i.main = "1"
         WHERE
+        ' . (isset($category_id) ? '
             c.category_id = :category_id
-              AND
-            p.active = 1
+              AND ' : '' ) .
+            'p.active = 1
+        GROUP BY
+            p.id
+        ' . ($order ? ' ORDER BY ' . $order : '') . '
+        ' . ($limit ? ' LIMIT ' . $limit : '') . '
+
         ');
-        return $this->get_all($stm, array('category_id' => $category_id));
+        return isset($category_id) ? $this->get_all($stm, array('category_id' => $category_id)) : $this->get_all($stm);
+    }
+
+    public function countCategoryProducts($category_id = null)
+    {
+        $stm = $this->pdo->prepare('
+            SELECT
+                count(p.id) qt
+            FROM
+                products p
+            JOIN
+                products_categories_relations c ON c.product_id = p.id
+            WHERE
+        ' . (isset($category_id) ? '
+            c.category_id = :category_id
+              AND ' : '') .
+            'p.active = 1
+        ');
+        if (isset($category_id)) {
+            return $this->get_row($stm, array('category_id' => $category_id))['qt'];
+        } else {
+            return $this->get_row($stm)['qt'];
+        }
+    }
+    public function getCategoryBestsellers($category_id = null, $limit = null)
+    {
+        $stm = $this->pdo->prepare('
+        SELECT
+            p.id,
+            p.product_name,
+            p.product_key,
+            p.short_description,
+            p.price,
+            p.special_price,
+            i.image_name
+        FROM
+            products p
+               JOIN
+            products_categories_relations c ON c.product_id = p.id
+               LEFT JOIN
+            product_images i ON i.product_id = p.id AND i.main = "1"
+        WHERE
+        ' . (isset($category_id) ? '
+            c.category_id = :category_id
+              AND ' : '' ) .
+            'p.active = 1
+                AND
+            p.bestseller = 1
+        GROUP BY
+            p.id
+        ' . (isset($limit) ? ' LIMIT ' . $limit : '') . '
+        ');
+        return isset($category_id) ? $this->get_all($stm, array('category_id' => $category_id)) : $this->get_all($stm);
     }
 
     public function getProductCopies($copy_id)

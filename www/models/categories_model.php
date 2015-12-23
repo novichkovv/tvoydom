@@ -123,4 +123,5 @@ class categories_model extends model
         ');
         return $stm->execute(array('position' => $position));
     }
+
 }

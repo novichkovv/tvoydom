@@ -1,7 +1,7 @@
     <body class="login">
     <div class="logo">
         <a href="<?php echo MAIN_SITE_DIR; ?>">
-            <img style="width: 100px;" src="<?php echo SITE_DIR; ?>images/main/logo200.png" alt="Магазин"/>
+            <img style="width: 100px; margin-bottom: -20px;" src="<?php echo SITE_DIR; ?>images/main/logo200.png" alt="Магазин"/>
         </a>
     </div>
     <div class="content">
@@ -56,7 +56,7 @@
     <!-- END FORGOT PASSWORD FORM -->
     </div>
     <div class="copyright">
-        2014 © 1nut.ru | Административное Приложение
+        2015 © tvoydom-norilsk.ru | Административное Приложение
     </div>
 </body>
 <script type="text/javascript">

@@ -45,7 +45,7 @@ abstract class controller extends base
             exit;
         }
         if(PROJECT == 'frontend' && $controller == 'common_controller') {
-            $this->check_client_auth();
+            //$this->check_client_auth();
         }
         if($this->check_auth)
         {

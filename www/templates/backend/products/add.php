@@ -22,11 +22,10 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active">
                             <a href="#tab_1" data-toggle="tab">Основные данные</a></li>
-                        <li><a href="#tab_2" data-toggle="tab">Количество/вес/цены</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">Цены</a></li>
                         <li><a href="#tab_3" data-toggle="tab">Изображения</a></li>
                         <li><a href="#tab_4" data-toggle="tab">Мета Данные</a></li>
                         <li><a href="#tab_5" data-toggle="tab">Категории</a></li>
-                        <li><a href="#tab_6" data-toggle="tab">Копии</a></li>
                     </ul>
                     <?php if ($product['images']['main']): ?>
                         <img id="product_thumbnail" src="<?php echo SITE_DIR . 'uploads/images/product_images/' . $product['images']['main']; ?>" />
@@ -81,8 +80,8 @@
                                                             Активный
                                                         </label>
                                                         <label class="col-md-6">
-                                                            <input type="checkbox" class="icheck">
-                                                            Бестселлер
+                                                            <input type="checkbox" class="icheck" name="product[bestseller]" <?php if($product['bestseller'] || !$product) echo 'checked'; ?> value="1">
+                                                            Хит продаж
                                                         </label>
                                                     </div>
                                                     <br>
@@ -115,45 +114,12 @@
                         <div class="portlet light">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-gift"></i>Количество/вес/цены
+                                    <i class="fa fa-gift"></i>Цены
                                 </div>
                             </div>
                             <div class="portlet-body form">
                                 <div class="form-horizontal form-bordered">
                                     <div class="form-body">
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Количество <span class="required">*</span> </label>
-                                            <div class="col-md-8">
-                                                <button type="button" class="btn btn-default btn-minus pull-left">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                                <input style="width: 60px !important;" type="text" data-require="1" name="product[product_quantity]" value="<?php echo $product['product_quantity'] ? $product['product_quantity'] : 0; ?>" class="form-control pull-left countable">
-                                                <button type="button" class="btn btn-default btn-plus pull-left">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                                <div class="error-require validate-message">
-                                                    Обязательное поле
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Общий вес (г)</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name="product[common_weight]" id="common_weight" value="<?php echo $product['common_weight']; ?>" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Вес порции (г)</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name="product[portion_weight]" id="portion_weight" value="<?php echo $product['portion_weight']; ?>" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-md-4 control-label">Порций в упаковке</label>
-                                            <div class="col-md-8">
-                                                <input type="text" name="product[portions_quantity]" id="portions_quantity" value="<?php echo $product['portions_quantity']; ?>" class="form-control">
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <label class="col-md-4 control-label">Обычная цена <span class="required">*</span> </label>
                                             <div class="col-md-8">
@@ -296,35 +262,6 @@
                         </div>
                         <button type="button" id="save_sec_btn" class="btn btn-danger tab-next">Сохранить <i class="fa fa-angle-right"></i> </button>
                     </div>
-                    <div class="tab-pane" id="tab_6">
-                        <div class="portlet light">
-                            <div class="portlet-title">
-                                <div class="caption">
-                                    <i class="fa fa-gift"></i> Копии
-                                </div>
-                                <div class="actions">
-                                    <a href="#add_copy_modal" data-toggle="modal" class="btn btn-primary">Создать копию</a>
-                                </div>
-                            </div>
-                            <div class="portlet-body form">
-                                <div class="form-horizontal form-bordered">
-                                    <div class="form-body">
-                                        <div class="row">
-                                            <div class="col-md-12" id="product_copies_table">
-                                                <?php if ($product_copies): ?>
-                                                    <?php require_once(TEMPLATE_DIR . 'products' . DS . 'ajax' . DS . 'product_copies_table.php'); ?>
-                                                <?php endif; ?>
-                                                <?php if (!$product_copies): ?>
-                                                    <h3>Копий нет</h3>
-                                                <?php endif; ?>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                         </div>
                         </div>
                 </div>

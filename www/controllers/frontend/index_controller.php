@@ -9,6 +9,7 @@ class index_controller extends controller
 {
     public function index()
     {
+        $this->render('bestsellers', $this->model('products')->getCategoryBestsellers(null, 4));
         $this->addScript('libs/isotope.min');
         $this->view('index' . DS . 'index');
     }
