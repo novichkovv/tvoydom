@@ -104,7 +104,7 @@
                                                                 image: '<?php echo SITE_DIR; ?>uploads/images/product_images/<?php echo $product['images']['main']; ?>',
                                                                 title: '<?php echo $product['product_name']; ?>',
                                                                 noparse: true,
-                                                                description: <?php echo $product['short_description']; ?>
+                                                                description: 'Товар из магазина "Твой Дом"'
                                                             },
                                                             {
                                                                 type: "round_nocount",
