@@ -8,9 +8,7 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="top-right-menu navbar-right">
                         <ul>
-                            <li><a href="">Личный кабинет</a></li>
-                            <!--                            <li><a href=""><span><img src="--><?php //echo SITE_DIR; ?><!--images/frontend/theme/usa.png" alt=""></span> English</a></li>-->
-                            <!--                            <li><a href="">Eur</a></li>-->
+<!--                            <li><a href="">Личный кабинет</a></li>-->
                         </ul>
                     </div>
                 </div>
@@ -29,7 +27,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="<?php echo SITE_DIR; ?>">
-                            <img style="width: 80px; margin-top: -13px;" src="<?php echo SITE_DIR; ?>images/main/logo200.png" alt="">
+                            <img style="width: 80px; margin-top: -13px;" src="<?php echo SITE_DIR; ?>images/main/logo200.png" alt="Твой Дом">
                         </a>
                     </div>
                 </div>
@@ -49,22 +47,6 @@
                                     </ul>
                                 <?php endif; ?>
                             </li>
-                            <!--                            <li><a href="">Features</a></li>-->
-                            <!--                            <li class="dropdown">-->
-                            <!--                                <a href="" class="dropdown-toggle" data-toggle="dropdown">Pages</a>-->
-                            <!--                                <ul class="dropdown-menu">-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/shop_full.html">Shop full</a></li>-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/shop_left_list.html">Shop list</a></li>-->
-                            <!--                                    <li><a href="<?php echo SITE_DIR; ?>images/frontend/theme/Fortuna.jpg">Shop left</a></li>-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/product_full.html">Product full</a></li>-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/product_right.html">Product right</a></li>-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/cart_left.html">Cart</a></li>-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/checkout.html">Checkout</a></li>-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/blog.html">Blog</a></li>-->
-                            <!--                                    <li><a href="http://softhemes.com/envato/html/vital/vital/single-post.html">Single post</a></li>-->
-                            <!--                                </ul>-->
-                            <!--                            </li>-->
-                            <!--                            <li><a href="">Portfolio</a></li>-->
                             <li><a href="<?php echo SITE_DIR; ?>about/">О нас</a></li>
                             <li><a href="<?php echo SITE_DIR; ?>contacts/">Контакты</a></li>
                         </ul>
@@ -130,29 +112,35 @@
                 </div>
             </div>
             <div class="mobile">
-                <a class="logo" href="http://softhemes.com/envato/html/vital/vital/index.html"><img src="<?php echo SITE_DIR; ?>images/frontend/theme/logo-2.png" alt=""></a>
+                <a class="logo" href="<?php echo SITE_DIR; ?>">
+                    <img style="height: 36px; margin-top: -7px;" src="<?php echo SITE_DIR; ?>images/main/logo200.png" alt="Твой дом">
+                </a>
                 <nav class="mobile-menu" style="display: block;">
                     <ul>
-                        <li><a href="">Home</a></li>
-                        <li><a href="<?php echo SITE_DIR; ?>images/frontend/theme/Fortuna.jpg">Store</a></li>
-                        <li><a href="">Features</a></li>
+                        <li><a href="<?php echo SITE_DIR; ?>">Главная</a></li>
                         <li>
-                            <a href="">Pages</a>
+                            <a href="<?php echo SITE_DIR; ?>catalog/">Каталог</a>
+                            <?php if (isset($common_vars['common_categories'])): ?>
                             <ul>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/shop_full.html">Shop full</a></li>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/shop_left_list.html">Shop list</a></li>
-                                <li><a href="<?php echo SITE_DIR; ?>images/frontend/theme/Fortuna.jpg">Shop left</a></li>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/product_full.html">Product full</a></li>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/product_right.html">Product right</a></li>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/cart_left.html">Cart</a></li>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/checkout.html">Checkout</a></li>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/blog.html">Blog</a></li>
-                                <li><a href="http://softhemes.com/envato/html/vital/vital/single-post.html">Single post</a></li>
+                                <?php foreach ($common_vars['common_categories'] as $category): ?>
+                                    <li>
+                                        <a href="<?php echo SITE_DIR; ?>catalog/<?php echo $category['category_key']; ?>">
+                                            <?php echo $category['category_name']; ?>
+                                        </a>
+                                    </li>
+                                <?php endforeach; ?>
                             </ul>
+                            <?php endif; ?>
                         </li>
-                        <li><a href="">Portfolio</a></li>
-                        <li><a href="http://softhemes.com/envato/html/vital/vital/blog.html">Blog</a></li>
-                        <li><a href="http://softhemes.com/envato/html/vital/vital/contact.html">Contact</a></li>
+                        <li>
+                            <a href="<?php echo SITE_DIR; ?>about/">О нас</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo SITE_DIR; ?>news/">Новости</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo SITE_DIR; ?>contacts/">Контакты</a>
+                        </li>
                     </ul>
                 </nav><!--/.mobile-menu -->
             </div><!--/.mobile -->

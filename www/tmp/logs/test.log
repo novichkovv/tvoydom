@@ -1281,3 +1281,16 @@
             WHERE
                 c.id = '1'
         
+2015-12-23 00:25:00 - 
+            SELECT
+                p.*,
+                i.image_name
+            FROM
+                products_copies c
+                    JOIN
+                products p ON p.copy_id = c.id
+                    LEFT JOIN
+                product_images i ON i.product_id = p.id AND i.main = "1"
+            WHERE
+                c.id = '0'
+        
