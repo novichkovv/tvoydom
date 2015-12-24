@@ -46,6 +46,7 @@ class products_controller extends controller
                 $review['entity'] = 1;
                 $row['user_ip'] = $_SERVER['REMOTE_ADDR'];
                 if($this->model('reviews')->insert($review)) {
+                    $review['create_date'] = tools_class::$months_rus[date('m', strtotime($review['create_date']))] . ' ' . date('d, Y', strtotime($review['create_date']));
                     $this->render('review', $review);
                     $template = $this->fetch('products' . DS . 'ajax' . DS . 'review');
                     echo json_encode(array('status' => 1, 'review' => $template));
