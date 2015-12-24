@@ -103,8 +103,8 @@
                                                         document.write(VK.Share.button({
                                                                 image: '<?php echo SITE_DIR; ?>uploads/images/product_images/<?php echo $product['images']['main']; ?>',
                                                                 title: '<?php echo $product['product_name']; ?>',
-                                                                noparse: true,
-                                                                description: 'Товар из магазина "Твой Дом"'
+                                                                description: 'Товар из магазина "Твой Дом"',
+                                                                noparse: true
                                                             },
                                                             {
                                                                 type: "round_nocount",
