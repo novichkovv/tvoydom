@@ -1,5 +1,5 @@
 <section class="left-shop-banner">
-    <div class="single-page-banner" style="background: url(images/frontend/main/bg.jpg) no-repeat scroll center bottom / cover;">
+    <div class="single-page-banner" style="background: url(<?php echo SITE_DIR; ?>images/frontend/main/bg.jpg) no-repeat scroll center bottom / cover;">
         <div class="overlay">
             <div class="container">
                 <div class="sp-header-content">
