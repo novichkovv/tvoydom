@@ -48,13 +48,25 @@ if(!$controller->check_auth) {
 }
 if(isset($_REQUEST['ajax'])) {
     $ajax_action = $action . '_ajax';
-    if(!$_REQUEST['common']) {
-        if(is_callable($controller->$ajax_action())) {
-            $controller->$ajax_action();
+    if(method_exists($controller, $ajax_action)) {
+        if(!$_REQUEST['common']) {
+            if(is_callable($controller->$ajax_action())) {
+                $controller->$ajax_action();
+            }
+        } else {
+            if(is_callable($common_controller->index_ajax())) {
+                $controller->index_ajax();
+            }
         }
-    } else {
-        if(is_callable($common_controller->index_ajax())) {
-            $controller->index_ajax();
+    } elseif(method_exists($controller, 'catcher_ajax')) {
+        if(!$_REQUEST['common']) {
+            if(is_callable($controller->catcher_ajax())) {
+                $controller->$ajax_action();
+            }
+        } else {
+            if(is_callable($common_controller->catcher_ajax())) {
+                $controller->catcher_ajax();
+            }
         }
     }
 

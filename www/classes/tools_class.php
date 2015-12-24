@@ -7,6 +7,21 @@
  */
 class tools_class
 {
+    public static  $months_rus = array(
+        '01' => 'Январь',
+        '02' => 'Февраль',
+        '03' => 'Март',
+        '04' => 'Апрель',
+        '05' => 'Март',
+        '06' => 'Июнь',
+        '07' => 'Июль',
+        '08' => 'Август',
+        '09' => 'Сентябрь',
+        '10' => 'Октябрь',
+        '11' => 'Ноябрь',
+        '12' => 'Декабрь',
+    );
+
     /**
      * @param string $subject
      * @param string $message
@@ -18,7 +33,7 @@ class tools_class
      * @throws phpmailerException
      */
 
-    public static function mail($subject, $message, $to, $from = 'info@qcop.ru', $name = 'Client')
+    public static function mail($subject, $message, $to, $from = 'info@tvoydom-norilsk.ru', $name = 'Client')
     {
         require_once LIBS_DIR.'phpmailer/class.phpmailer.php';
         $mail = new PHPMailer();

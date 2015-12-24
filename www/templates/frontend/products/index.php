@@ -1,5 +1,6 @@
+<script type="text/javascript" src="http://vk.com/js/api/share.js?93" charset="windows-1251"></script>
 <section class="left-shop-banner">
-    <div class="single-page-banner" style="background: url(images/frontend/main/bg.jpg) no-repeat scroll center bottom / cover;">
+    <div class="single-page-banner" style="background: url(<?php echo SITE_DIR; ?>images/frontend/main/bg.jpg) no-repeat scroll center bottom / cover;">
         <div class="overlay">
             <div class="container">
                 <div class="sp-header-content">
@@ -18,7 +19,7 @@
     <div class="container">
         <div class="shop-left-body">
             <div class="row">
-                <div class="col-md-3 col-sm-4 col-xs-12">
+                <div class="col-md-3 col-sm-4 col-xs-12 hidden-xs">
                     <div class="sidebar">
                         <div class="single-sidebar">
                             <h2 class="sidebar-title">
@@ -96,10 +97,23 @@
                                                     <?php echo $product['short_description']; ?>
                                                 </p>
                                                 <div class="shop-price"><?php echo $product['price']; ?></div><!--/.snv-price -->
-<!--                                                <div class="product-details-bottom">-->
-<!--                                                    <div class="btn add-cart-btn">Add to Cart</div>-->
-<!--                                                    <input type="text" value="1" class="cart-amount"/>-->
-<!--                                                </div>-->
+                                                <div>
+                                                    <script type="text/javascript">
+                                                        <!--
+                                                        document.write(VK.Share.button({
+                                                                image: '<?php echo SITE_DIR; ?>uploads/images/product_images/<?php echo $product['images']['main']; ?>',
+                                                                title: '<?php echo $product['product_name']; ?>',
+                                                                noparse: true,
+                                                                description: <?php echo $product['short_description']; ?>
+                                                            },
+                                                            {
+                                                                type: "round_nocount",
+                                                                text: "Нравится"
+                                                            })
+                                                        );
+                                                        -->
+                                                    </script>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -115,18 +129,63 @@
                                             <li><a data-toggle="tab" role="tab" href="#tab_policy">Доставка</a></li>
                                         </ul>
                                     </div>
-                                    <!-- PRODUCT NAV -->
-
-                                    <!-- PRODUCTS -->
                                     <div class="tab-content">
-                                        <!-- Description -->
                                         <div id="tab_des" class="tab-pane fade in active" role="tabpanel">
                                             <h2 class="product-tab-title">Описание</h2>
                                             <?php echo $product['description']; ?>
                                         </div>
-                                        <!-- Reviews -->
                                         <div id="tab_review" class="tab-pane fade" role="tabpanel">
-                                            <h2 class="product-tab-title">Отзывы</h2>
+                                                <div id="comments">
+                                                    <div class="comments-inner-wrap">
+                                                        <?php if ($reviews): ?>
+                                                        <h2 class="product-tab-title">Все отзывы</h2>
+                                                        <?php endif; ?>
+                                                        <?php if (!$reviews): ?>
+                                                            <h2 class="product-tab-title">Нет отзывов</h2>
+                                                        <?php endif; ?>
+                                                        <ul class="commentlist" id="reviews">
+                                                            <?php foreach ($reviews as $review): ?>
+                                                                <?php @require(TEMPLATE_DIR . 'products' . DS . 'ajax' . DS . 'review.php'); ?>
+                                                            <?php endforeach; ?>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            <div id="respond">
+                                                <div class="reply-title">
+                                                    <h3 class="h5">Оставьте свой отзыв</h3>
+                                                </div>
+                                                <form id="review_form" method="post">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="input-field">
+                                                                <input type="text" name="review[user_name]" data-require="1" placeholder="Имя">
+                                                                <div class="error-require validate-message">
+                                                                    Необходимо указать имя
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="input-field">
+                                                                <input type="email" name="review[user_email]" placeholder="Email">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="input-field">
+                                                                <textarea  name="review[review]" placeholder="Ваш отзыв" data-require="1"></textarea>
+                                                                <div class="error-require validate-message">
+                                                                    Необходимо написать отзыв
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <input type="hidden" name="review[entity_id]" value="<?php echo $product['id']; ?>">
+                                                            <input type="submit" value="Отправить" class="btn submit-btn">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                                <!-- ./COMMENT FORM -->
+
+                                            </div>
 
                                         </div>
                                         <!-- Delivery and Return Information -->
@@ -141,7 +200,7 @@
                                     <!-- PRODUCTS -->
                                 </div>
                             </section><!--/.product-tabs -->
-                            <?php if ($bestsellers): ?>
+                            <?php if ($related_products): ?>
                             <section class="vital-shop-area related-product">
                                 <div class="section-heading">
                                     <h2>Смотрите также</h2>
@@ -149,23 +208,23 @@
                                 </div><!--/.section-heading -->
                                 <div class="new-vital-product">
                                     <div class="row">
-                                        <?php foreach ($bestsellers as $bestseller): ?>
+                                        <?php foreach ($related_products as $related): ?>
                                             <div class="col-md-4 col-sm-4 col-xs-12">
                                                 <div class="single-nv-product">
                                                     <div class="snv-product-img">
-                                                        <img src="<?php echo SITE_DIR; ?>uploads/images/product_images/<?php echo $bestseller['image_name']; ?>" alt="" />
-                                                        <a href="<?php echo SITE_DIR; ?>products/<?php echo $bestseller['product_key']; ?>/" class="hover-cart">
+                                                        <img src="<?php echo SITE_DIR; ?>uploads/images/product_images/<?php echo $related['image_name']; ?>" alt="" />
+                                                        <a href="<?php echo SITE_DIR; ?>products/<?php echo $related['product_key']; ?>/" class="hover-cart">
                                                             <!--                                        <img src="assets/images/cart-icon.png" alt="" />-->
                                                             <i class="fa fa-search"></i>
                                                         </a>
                                                     </div><!--/.snv-product-img -->
                                                     <h2>
-                                                        <a href="<?php echo SITE_DIR; ?>products/<?php echo $bestseller['product_key']; ?>/">
-                                                            <?php echo $bestseller['product_name']; ?>
+                                                        <a href="<?php echo SITE_DIR; ?>products/<?php echo $related['product_key']; ?>/">
+                                                            <?php echo $related['product_name']; ?>
                                                         </a>
                                                     </h2>
-                                                    <p><?php echo $bestseller['short_description']; ?></p>
-                                                    <div class="snv-price"><?php echo $bestseller['price']; ?></div><!--/.snv-price -->
+                                                    <p><?php echo $related['short_description']; ?></p>
+                                                    <div class="snv-price"><?php echo $related['price']; ?></div><!--/.snv-price -->
                                                 </div><!--/.single-nv-product -->
                                             </div>
                                         <?php endforeach; ?>
@@ -180,3 +239,28 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    $ = jQuery.noConflict();
+    $(document).ready(function () {
+        $("#review_form").submit(function() {
+            if(validate('review_form')) {
+                var params = {
+                    'action': 'save_review',
+                    'get_from_form': 'review_form',
+                    'callback': function (msg) {
+                        ajax_respond(msg, function(respond)
+                        {
+                            var $reviews_container = $("#reviews");
+                            $reviews_container.prepend(respond.review);
+                            document.getElementById('review_form').reset();
+                            slideToAnchor("#reviews");
+                            Notifier.success('Спасибо за Ваш отзыв!');
+                        });
+                    }
+                };
+                ajax(params);
+            }
+            return false;
+        });
+    });
+</script>

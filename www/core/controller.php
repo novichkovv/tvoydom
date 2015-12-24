@@ -21,6 +21,7 @@ abstract class controller extends base
     protected $scripts = [];
     protected $styles = [];
     protected $append_to_body_elements = [];
+    protected $tools;
 
     function __construct($controller, $action)
     {

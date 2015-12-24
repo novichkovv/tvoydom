@@ -26,6 +26,7 @@
                         <li><a href="#tab_3" data-toggle="tab">Изображения</a></li>
                         <li><a href="#tab_4" data-toggle="tab">Мета Данные</a></li>
                         <li><a href="#tab_5" data-toggle="tab">Категории</a></li>
+                        <li><a href="#tab_6" data-toggle="tab">Related Products</a></li>
                     </ul>
                     <?php if ($product['images']['main']): ?>
                         <img id="product_thumbnail" src="<?php echo SITE_DIR . 'uploads/images/product_images/' . $product['images']['main']; ?>" />
@@ -260,8 +261,31 @@
                                 </div>
                             </div>
                         </div>
+                        <button type="button" class="btn btn-default tab-next" data-tab="5">Далее <i class="fa fa-angle-right"></i> </button>                    </div>
+                    <div class="tab-pane" id="tab_6">
+                        <div class="portlet light">
+                            <div class="portlet-title">
+                                <div class="caption">
+                                    <i class="fa fa-gift"></i> Related products
+                                </div>
+                            </div>
+                            <div class="portlet-body form">
+                                <div class="form-horizontal form-bordered">
+                                    <div class="form-body">
+                                        <?php foreach ($products as $item): ?>
+                                            <?php if($product['id'] == $item['id']) continue; ?>
+                                            <label class="checkbox">
+                                                <input type="checkbox" class="icheck" name="related[<?php echo $item['id']; ?>]" value="1" <?php if(is_array($product['related']) && in_array($item['id'], $product['related'])) echo 'checked'; ?>>
+                                                <?php echo $item['product_name']; ?>
+                                            </label>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <button type="button" id="save_sec_btn" class="btn btn-danger tab-next">Сохранить <i class="fa fa-angle-right"></i> </button>
                     </div>
+
                         </div>
                         </div>
                 </div>

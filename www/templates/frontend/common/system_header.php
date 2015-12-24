@@ -30,7 +30,9 @@
     <script src="<?php echo SITE_DIR; ?>js/frontend/theme/jquery.meanmenu.js" type="text/javascript"></script>
     <script src="<?php echo SITE_DIR; ?>js/frontend/theme/bootstrap-select.js" type="text/javascript"></script>
     <script src="<?php echo SITE_DIR; ?>js/libs/smooth.js" type="text/javascript"></script>
+    <script src="<?php echo SITE_DIR; ?>js/libs/notifier.js" type="text/javascript"></script>
     <script src="<?php echo SITE_DIR; ?>js/frontend/theme/custom.js" type="text/javascript"></script>
+    <script src="<?php echo SITE_DIR; ?>js/common/common.js" type="text/javascript"></script>
     <script src="<?php echo SITE_DIR; ?>js/frontend/script.js" type="text/javascript"></script>
 </head>
 <body>

@@ -12,6 +12,7 @@ class products_model extends model
         $stm = $this->pdo->prepare('
         SELECT
             p.*,
+            rp.related_product_id,
             pi.id image_id,
             pi.image_name,
             pi.main,
@@ -21,6 +22,8 @@ class products_model extends model
             products p
               LEFT JOIN
             product_images pi ON pi.product_id = p.id
+              LEFT JOIN
+            related_products rp ON rp.product_id = p.id
         WHERE
             p.id = :product_id
         ORDER BY pi.main DESC, pi.small DESC, pi.usual DESC
@@ -37,6 +40,8 @@ class products_model extends model
                     $res['images'][$key][$v['image_id']] = $v['image_name'];
                 } elseif($key == 'image_name' && !$v['usual'] && !$v['small'] && !$v['main'] && $val) {
                     $res['images']['inactive'][$v['image_id']] = $v['image_name'];
+                } elseif($key == 'related_product_id') {
+                    $res['related'][$v['related_product_id']] = $val;
                 } else {
                     $res[$key] = $val;
                 }
@@ -125,6 +130,34 @@ class products_model extends model
         ' . (isset($limit) ? ' LIMIT ' . $limit : '') . '
         ');
         return isset($category_id) ? $this->get_all($stm, array('category_id' => $category_id)) : $this->get_all($stm);
+    }
+
+    public function getRelatedProducts($product_id, $limit = 3)
+    {
+        $stm = $this->pdo->prepare('
+        SELECT
+            p.id,
+            p.product_name,
+            p.product_key,
+            p.short_description,
+            p.price,
+            p.special_price,
+            i.image_name
+        FROM
+            products p
+               JOIN
+            related_products rp ON rp.related_product_id = p.id
+               LEFT JOIN
+            product_images i ON i.product_id = p.id AND i.main = "1"
+        WHERE
+            rp.product_id = :product_id
+              AND
+            p.active = 1
+        GROUP BY
+            p.id
+        ' . (isset($limit) ? ' LIMIT ' . $limit : '') . '
+        ');
+        return $this->get_all($stm, array('product_id' => $product_id));
     }
 
     public function getProductCopies($copy_id)

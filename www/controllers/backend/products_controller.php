@@ -101,6 +101,7 @@ class products_controller extends controller
             $this->render('product', $product);
         }
         $this->render('categories', $categories);
+        $this->render('products', $this->model('products')->getAll('product_name'));
         $this->breadcrumbs();
         $this->addScript('libs/bootstrap-summernote/summernote');
         $this->addStyle('../js/libs/bootstrap-summernote/summernote');
@@ -190,6 +191,7 @@ class products_controller extends controller
                             $images[$k]['product_id'] = $product['id'];
                         }
                     }
+
                     $this->model('product_images')->insertRows($images);
                     $this->model('products_categories_relations')->delete('product_id', $product['id']);
                     $row = [];
@@ -198,6 +200,15 @@ class products_controller extends controller
                         foreach ($_POST['category'] as $category_id => $category) {
                             $row['category_id'] = $category_id;
                             $this->model('products_categories_relations')->insert($row);
+                        }
+                    }
+                    $this->model('related_products')->delete('product_id', $product['id']);
+                    if($_POST['related']) {
+                        $row = [];
+                        $row['product_id'] = $product['id'];
+                        foreach ($_POST['related'] as $related_id => $related) {
+                            $row['related_product_id'] = $related_id;
+                            $this->model('related_products')->insert($row);
                         }
                     }
                     echo json_encode(array('status' => 1, 'product_id' => $product['id']));

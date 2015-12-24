@@ -362,4 +362,15 @@ function ajax_respond(msg, success, fail, ret) {
             }
         }
     }
+
+
+}
+
+function slideToAnchor(anchor, speed) {
+    if(undefined === speed) {
+        speed = 1000;
+    }
+    var $anchor = $(anchor);
+    var destination = $anchor.offset().top;
+    $("html:not(:animated),body:not(:animated)").animate({ scrollTop: destination}, speed);
 }
